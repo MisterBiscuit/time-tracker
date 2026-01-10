@@ -1,12 +1,19 @@
-import {Component, computed, effect, EventEmitter, inject, input, Output, signal} from '@angular/core';
+import {Component, computed, effect, EventEmitter, inject, Output, signal} from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card';
+import {DailyLogComponent} from '@components/daily-log/daily-log.component';
 import {CalendarService} from '@shared/calendar.service';
 import {DateStateManager} from '@shared/date-state.manager';
 import {DrawerStateManager} from '@shared/drawer-state.manager';
 import {DurationPipe} from '@shared/duration.pipe';
 import {toLocalDateString} from '@shared/helpers';
 import {StorageService} from '@shared/storage.service';
-import {DailyLogComponent} from '@components/daily-log/daily-log.component';
+import {TimeOff} from '@shared/interfaces';
+
+type CalendarDay = { iso: string; } & (
+  | { type: 'empty' }
+  | { type: 'off'; label: string | undefined; day: number }
+  | { type: 'worked'; day: number; loggable: boolean; logged: number; expected: number }
+);
 
 @Component({
   selector: 'app-calendar',
@@ -27,36 +34,50 @@ export class CalendarComponent {
 
   @Output() dateSelected = new EventEmitter<string>();
 
-  public days = signal<any[]>([]);
+  public days = signal<CalendarDay[]>([]);
   public current = computed((() => toLocalDateString(this.dateStateManager.current())));
 
   constructor() {
     effect(() => {
-      const year = this.dateStateManager.year();
-      const month = this.dateStateManager.month();
+      const year: number = this.dateStateManager.year();
+      const month: number = this.dateStateManager.month();
 
       const date = new Date(year, month, 1);
-      const days: any[] = [];
+      const days: CalendarDay[] = [];
 
       const padStart = this.mondayIndex(date);
       for (let i = 0; i < padStart; i++) {
-        days.push({ empty: true });
+        days.push({ type: 'empty', iso: '' });
       }
 
       while (date.getMonth() === month) {
-        const iso = toLocalDateString(date);
-        const off = this.storageService.timeOff().find(t => t.date === iso);
-        const logged = this.storageService.entries()
-          .filter(entry => entry.date === iso)
-          .reduce((sum, entry) => sum + entry.minutes, 0);
+        const iso: string = toLocalDateString(date);
+        const off: TimeOff | undefined = this.storageService.timeOff().find(t => t.date === iso);
+        const day: number = date.getDate();
 
-        days.push({
-          iso,
-          off,
-          day: date.getDate(),
-          logged,
-          expected: this.calendarService.expectedMinutes(date),
-        });
+        if (off) {
+          days.push({
+            type: 'off',
+            label: off.label,
+            iso,
+            day,
+          });
+        } else {
+
+          const logged: number = this.storageService.entries()
+            .filter(entry => entry.date === iso)
+            .reduce((sum, entry) => sum + entry.minutes, 0);
+
+          days.push({
+            type: 'worked',
+            iso,
+            day: date.getDate(),
+            loggable: this.calendarService.isLoggable(date),
+            logged,
+            expected: this.calendarService.expectedMinutes(date),
+          });
+        }
+
         date.setDate(date.getDate() + 1);
       }
 
