@@ -1,6 +1,10 @@
 # TimeTracker
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+Tool to track my time per project per work type.
+
+Local browser storage only, currently there are no plans to add server-side storage. \
+Code is provided as is and I am not responsible for any time-related issues with any employers. \
+I hope anyone who uses it finds it useful.
 
 ## Development server
 
