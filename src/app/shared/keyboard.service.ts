@@ -16,10 +16,8 @@ export class KeyboardService {
 
   private onKeyDown(event: KeyboardEvent): void {
     if (this.shouldIgnore(event)) {
-      console.log('ignored');
       return;
     }
-    console.log('key', event.key);
 
     switch (event.key.toLowerCase()) {
       case 'n':

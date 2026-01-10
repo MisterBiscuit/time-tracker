@@ -45,7 +45,7 @@ export class DailyLogComponent implements AfterViewInit {
   public readonly dateStateManager = inject(DateStateManager);
   public readonly storageService = inject(StorageService);
 
-  @ViewChild('projectInput') projectInput!: MatSelect;
+  @ViewChild('initialInput', { static: false }) initialInput!: MatSelect;
 
   public projectId: string | null = null;
   public workTypeId: string = 'dev';
@@ -75,7 +75,9 @@ export class DailyLogComponent implements AfterViewInit {
   }
 
   public ngAfterViewInit(): void {
-    setTimeout(() => this.projectInput?.focus());
+    queueMicrotask(() => {
+      this.initialInput?.focus();
+    });
   }
 
   public add(): void {

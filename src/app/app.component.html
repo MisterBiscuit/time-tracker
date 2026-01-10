@@ -1,4 +1,4 @@
-<mat-drawer-container>
+<mat-drawer-container autosize>
   <mat-drawer-content>
     <mat-toolbar>
       <span>Time tracking</span>
@@ -28,6 +28,7 @@
 
   <mat-drawer position="end"
               mode="push"
+              [autoFocus]="false"
               [opened]="drawerStateManager.isOpen()"
               (closed)="drawerStateManager.close()">
     <ng-container *ngComponentOutlet="drawerStateManager.component(); inputs: drawerStateManager.inputs()"></ng-container>
