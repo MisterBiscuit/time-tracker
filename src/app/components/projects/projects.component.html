@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Projects</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="row">
+      <mat-form-field>
+        <input matInput placeholder="New project" [(ngModel)]="projectName" />
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Colour" [(ngModel)]="projectColour" />
+      </mat-form-field>
+      <button mat-raised-button (click)="addProject()">Add project</button>
+    </div>
+
+    <ul>
+      @for (project of storageService.projects(); track project.id) {
+        <li>
+          <span class="dot" [style.background]="project.colour"></span>
+          {{ project.name }}
+
+          <button mat-icon-button color="warn" aria-label="Delete project" (click)="removeProject(project.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </li>
+      }
+    </ul>
+  </mat-card-content>
+</mat-card>

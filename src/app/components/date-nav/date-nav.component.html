@@ -1,0 +1,23 @@
+<div class="month-nav">
+  <button mat-icon-button matTooltip="Previous month" (click)="dateStateManager.previousMonth()">
+    <mat-icon>first_page</mat-icon>
+  </button>
+
+  <button mat-icon-button matTooltip="Previous month" (click)="dateStateManager.previousDay()">
+    <mat-icon>chevron_left</mat-icon>
+  </button>
+
+  <span class="label">{{ dateStateManager.label() }}</span>
+
+  <button mat-icon-button matTooltip="Next month" (click)="dateStateManager.nextDay()">
+  <mat-icon>chevron_right</mat-icon>
+  </button>
+
+  <button mat-icon-button matTooltip="Next month" (click)="dateStateManager.nextMonth()">
+  <mat-icon>last_page</mat-icon>
+  </button>
+
+  <button mat-icon-button matTooltip="Today" (click)="dateStateManager.resetToCurrent()">
+    <mat-icon>today</mat-icon>
+  </button>
+</div>

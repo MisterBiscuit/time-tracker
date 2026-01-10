@@ -1,0 +1,27 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Work types</mat-card-title>
+  </mat-card-header>
+
+  <div class="row">
+    <mat-form-field>
+      <input matInput placeholder="New work type" [(ngModel)]="workTypeLabel" />
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Symbol" [(ngModel)]="workTypeSymbol" />
+    </mat-form-field>
+    <button mat-raised-button (click)="addWorkType()">Add work type</button>
+  </div>
+
+  <ul>
+    @for (workType of storageService.workTypes(); track workType.id) {
+      <li>
+        {{ workType.symbol }} {{ workType.label }}
+
+        <button mat-icon-button color="warn" aria-label="Delete work type" (click)="removeWorkType(workType.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </li>
+    }
+  </ul>
+</mat-card>

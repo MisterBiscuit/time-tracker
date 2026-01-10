@@ -1,0 +1,90 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      {{ displayDate() }}
+      <button mat-icon-button (click)="drawerStateManager.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-title>
+
+    <mat-card-subtitle>
+      <p>Remaining: {{ remaining() | duration }} min</p>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="form">
+      @if (loggable()) {
+        <form (submit)="add()">
+          <mat-form-field>
+            <mat-label>Project</mat-label>
+            <mat-select [(ngModel)]="projectId" name="projectId" #projectInput>
+              @for (project of projects(); track project.id) {
+                <mat-option [value]="project.id">{{ project.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Work Type</mat-label>
+            <mat-select [(ngModel)]="workTypeId" name="workTypeId">
+              @for (workType of workTypes(); track workType.id) {
+                <mat-option [value]="workType.id">{{ workType.label }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Minutes</mat-label>
+            <input matInput type="number" step="15" name="minutes" [(ngModel)]="minutes" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Comment</mat-label>
+            <textarea matInput rows="2" [(ngModel)]="comment" name="comment"></textarea>
+          </mat-form-field>
+        </form>
+
+        <button mat-raised-button color="primary"
+                [disabled]="!canAdd()"
+                (click)="add()">Add</button>
+      }
+      @else {
+        <p>Not loggable</p>
+      }
+    </div>
+
+    @if (entriesForDay().length) {
+      <div class="entries">
+        <h3>Entries</h3>
+
+        @for (entry of entriesForDay(); track entry.id) {
+          <div class="entry">
+
+            <div class="entry-main">
+            <span
+              class="project-dot"
+              [style.background]="projectColour(entry.projectId)">
+            </span>
+
+              <strong>{{ entry.minutes | duration }}</strong>
+
+              <span class="type">
+              {{ workTypeSymbol(entry.workTypeId) }}
+                {{ workTypeLabel(entry.workTypeId) }}
+            </span>
+
+              @if (entry.comment) {
+                <span>- {{ entry.comment }}</span>
+              }
+            </div>
+
+            <button mat-icon-button color="warn" aria-label="Delete entry" (click)="remove(entry.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        }
+      </div>
+    }
+  </mat-card-content>
+</mat-card>

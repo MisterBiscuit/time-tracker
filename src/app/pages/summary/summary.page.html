@@ -1,0 +1,34 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+        Monthly Summary - {{ logged() | duration }} / {{ expected() | duration }} ({{ logged() / expected() * 100 | number:'1.1-2' }}%)
+    </mat-card-title>
+    <mat-card-subtitle>
+      <mat-progress-bar mode="determinate" [value]="logged() / expected() * 100"></mat-progress-bar>
+    </mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <table>
+      <tr>
+        <th>Project</th>
+        @for (workType of workTypes; track workType.id) {
+          <th>{{ workType.symbol }} {{ workType.label }}</th>
+        }
+        <th>Total</th>
+      </tr>
+
+      @for (row of rows; track $index) {
+        <tr>
+          <td [style.border-left]="'4px solid ' + row.colour">
+            {{ row.project }}
+          </td>
+          @for (workType of workTypes; track workType.id) {
+            <td>{{ row.byType[workType.id] | duration }}</td>
+          }
+          <td>{{ row.total | duration }}</td>
+        </tr>
+      }
+    </table>
+  </mat-card-content>
+</mat-card>

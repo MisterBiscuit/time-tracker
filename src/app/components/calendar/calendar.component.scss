@@ -1,0 +1,46 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px
+}
+
+.day {
+  padding: 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+
+  &.empty {
+    background: transparent;
+    pointer-events: none;
+  }
+
+  &.selected {
+    outline: 2px solid #90caf9;
+  }
+
+  &.complete {
+    background: rgba(76, 175, 80, 0.25)
+  }
+
+  &.missing {
+    background: rgba(244, 67, 54, 0.25)
+  }
+
+  &.off {
+    background: rgba(120, 120, 120, 0.25)
+  }
+}
+
+.small {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: 4px;
+  text-align: center;
+  font-size: 12px;
+  opacity: 0.7;
+}

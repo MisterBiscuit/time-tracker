@@ -1,0 +1,38 @@
+<mat-card>
+  <mat-card-content>
+    <div class="weekdays">
+      @for (weekday of ['Mon','Tue','Wed','Thu','Fri','Sat','Sun']; track weekday) {
+        <div>{{ weekday }}</div>
+      }
+    </div>
+
+    <div class="grid">
+      @for (day of days(); track day) {
+        @if (day.loggable) {
+          <div class="day empty">
+            @if (day.off?.label) {
+              <div class="small">
+                {{ day.off.label }}
+              </div>
+            }
+          </div>
+        }
+        @else {
+          <div class="day"
+               [class.selected]="day.iso === current()"
+               [class.complete]="day.logged >= day.expected && day.expected > 0"
+               [class.missing]="day.logged < day.expected"
+               [class.off]="day.off"
+               (click)="selectDate(day.iso)">
+
+            <strong>{{ day.day }}</strong>
+
+            <div class="small">
+              {{ day.logged | duration }} / {{ day.expected | duration }}
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </mat-card-content>
+</mat-card>
