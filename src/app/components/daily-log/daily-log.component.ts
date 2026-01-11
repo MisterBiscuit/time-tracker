@@ -7,13 +7,14 @@ import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {MatInput} from '@angular/material/input';
 import {MatSelect} from '@angular/material/select';
-import {StorageService} from '@shared/storage.service';
 import {CalendarService} from '@shared/calendar.service';
-import {TimeEntry} from '@shared/interfaces';
+import {DateStateManager} from '@shared/date-state.manager';
 import {DrawerStateManager} from '@shared/drawer-state.manager';
 import {DurationPipe} from '@shared/duration.pipe';
 import {sortByField, toLocalDateString} from '@shared/helpers';
-import {DateStateManager} from '@shared/date-state.manager';
+import {TimeEntry} from '@shared/interfaces';
+import {StorageService} from '@shared/storage.service';
+
 
 @Component({
   selector: 'app-daily-log',

@@ -1,0 +1,95 @@
+$spaces: (
+  0: 0,
+  1: 0.25rem, // 4px
+  2: 0.5rem,  // 8px
+  3: 1rem,    // 16px
+  4: 1.5rem,  // 24px
+  5: 3rem     // 48px
+);
+
+// Margin utilities
+
+@each $key, $value in $spaces {
+  // all sides
+  .m-#{$key} {
+    margin: $value;
+  }
+
+  // axis
+  .mx-#{$key} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  .my-#{$key} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+
+  // individual sides
+  .mt-#{$key} { margin-top: $value; }
+  .mb-#{$key} { margin-bottom: $value; }
+  .ms-#{$key} { margin-left: $value; }
+  .me-#{$key} { margin-right: $value; }
+}
+
+// Padding utilities
+
+@each $key, $value in $spaces {
+  // all sides
+  .p-#{$key} {
+    padding: $value;
+  }
+
+  // axis
+  .px-#{$key} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  .py-#{$key} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+
+  // individual sides
+  .pt-#{$key} { padding-top: $value; }
+  .pb-#{$key} { padding-bottom: $value; }
+  .ps-#{$key} { padding-left: $value; }
+  .pe-#{$key} { padding-right: $value; }
+}
+
+// Gap utilities
+
+@each $key, $value in $spaces {
+  .gap-#{$key} {
+    gap: $value;
+  }
+
+  .row-gap-#{$key} {
+    row-gap: $value;
+  }
+
+  .col-gap-#{$key} {
+    column-gap: $value;
+  }
+}
+
+// Responsive variants
+
+$breakpoints: (
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+@each $bp, $width in $breakpoints {
+  @media (min-width: $width) {
+    @each $key, $value in $spaces {
+      .#{$bp}\:p-#{$key} { padding: $value; }
+      .#{$bp}\:m-#{$key} { margin: $value; }
+      .#{$bp}\:gap-#{$key} { gap: $value; }
+    }
+  }
+}

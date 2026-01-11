@@ -1,0 +1,19 @@
+.split {
+  display: flex;
+  height: 100%;
+  min-height: 400px;
+}
+
+.left {
+  flex: 0 0 50%;
+  overflow: auto;
+}
+
+.right {
+  flex: 1;
+  overflow: auto;
+}
+
+mat-divider[vertical] {
+  margin: 0 8px;
+}

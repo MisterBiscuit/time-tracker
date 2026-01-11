@@ -19,6 +19,7 @@ import {
   MatTable
 } from '@angular/material/table';
 import {StorageService} from '@shared/storage.service';
+import {SplitComponent, SplitLeftComponent, SplitRightComponent} from '@components/split/split.component';
 
 @Component({
   selector: 'app-time-off',
@@ -41,6 +42,9 @@ import {StorageService} from '@shared/storage.service';
     MatHeaderRowDef,
     MatCellDef,
     MatHeaderCellDef,
+    SplitComponent,
+    SplitLeftComponent,
+    SplitRightComponent,
   ],
   templateUrl: './time-off.component.html',
   styleUrl: './time-off.component.scss',

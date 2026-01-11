@@ -2,6 +2,8 @@
 
 @use '@angular/material' as mat;
 
+@use "spacing";
+
 @include mat.elevation-classes();
 @include mat.app-background();
 
@@ -39,14 +41,13 @@ body {
 .flex {
   display: flex;
 }
+
 .flex-row {
   flex-direction: row;
 }
+
 .flex-column {
   flex-direction: column;
-}
-.gap-1 {
-  gap: 1rem;
 }
 
 .justify-space-between {

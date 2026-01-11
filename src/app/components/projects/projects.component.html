@@ -1,30 +1,43 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>Projects</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-    <div class="row">
+<app-split>
+  <split-left>
+    <div class="flex flex-column gap-0 p-3">
       <mat-form-field>
         <input matInput placeholder="New project" [(ngModel)]="projectName" />
       </mat-form-field>
+
       <mat-form-field>
         <input matInput placeholder="Colour" [(ngModel)]="projectColour" />
       </mat-form-field>
-      <button mat-raised-button (click)="addProject()">Add project</button>
+
+      <button matButton="outlined" (click)="addProject()">Add project</button>
     </div>
+  </split-left>
 
-    <ul>
-      @for (project of storageService.projects(); track project.id) {
-        <li>
-          <span class="dot" [style.background]="project.colour"></span>
-          {{ project.name }}
+  <split-right>
+    <table mat-table [dataSource]="storageService.projects()">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
 
-          <button mat-icon-button color="warn" aria-label="Delete project" (click)="removeProject(project.id)">
+      <ng-container matColumnDef="colour">
+        <th mat-header-cell *matHeaderCellDef>Colour</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="dot" [style.background]="element.colour"></span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button color="warn" (click)="remove(element.id)">
             <mat-icon>delete</mat-icon>
           </button>
-        </li>
-      }
-    </ul>
-  </mat-card-content>
-</mat-card>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </split-right>
+</app-split>

@@ -1,34 +1,57 @@
 import {Component, inject} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatButton, MatIconButton} from '@angular/material/button';
-import {MatCard, MatCardContent, MatCardHeader, MatCardTitle} from '@angular/material/card';
 import {MatInput} from '@angular/material/input';
 import {MatFormField} from '@angular/material/form-field';
 import {MatIcon} from '@angular/material/icon';
 import {Project} from '@shared/interfaces';
 import {StorageService} from '@shared/storage.service';
+import {
+  MatCell,
+  MatCellDef,
+  MatColumnDef,
+  MatHeaderCell,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from '@angular/material/table';
+import {SplitComponent, SplitLeftComponent, SplitRightComponent} from '@components/split/split.component';
 
 @Component({
   selector: 'app-projects',
   standalone: true,
   imports: [
     MatButton,
-    MatCard,
-    MatCardContent,
-    MatCardHeader,
-    MatCardTitle,
     MatFormField,
     MatIcon,
     MatIconButton,
     MatInput,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatCell,
+    MatCellDef,
+    MatColumnDef,
+    MatHeaderCell,
+    MatHeaderRow,
+    MatHeaderRowDef,
+    MatRow,
+    MatRowDef,
+    MatTable,
+    MatHeaderCellDef,
+    SplitComponent,
+    SplitLeftComponent,
+    SplitRightComponent
   ],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
 })
 export class ProjectsComponent {
   public readonly storageService = inject(StorageService);
+
+  public readonly displayedColumns: string[] = ['name', 'colour', 'actions'];
 
   public projectName: string = '';
   public projectColour: string = '';
@@ -49,7 +72,7 @@ export class ProjectsComponent {
     this.projectColour = '';
   }
 
-  public removeProject(id: string): void {
+  public remove(id: string): void {
     this.storageService.projects.update(list => list.filter(project => project.id !== id));
     this.storageService.entries.update(list => list.filter(entry => entry.projectId !== id));
     this.storageService.sync();
