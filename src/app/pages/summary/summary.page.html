@@ -13,7 +13,12 @@
       <tr>
         <th>Project</th>
         @for (workType of workTypes; track workType.id) {
-          <th>{{ workType.symbol }} {{ workType.label }}</th>
+          <th>
+            @if (workType.symbol) {
+              <mat-icon>{{ workType.symbol }}</mat-icon>
+            }
+            {{ workType.label }}
+          </th>
         }
         <th>Total</th>
       </tr>

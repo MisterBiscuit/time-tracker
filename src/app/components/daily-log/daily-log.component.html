@@ -70,8 +70,10 @@
               <strong>{{ entry.minutes | duration }}</strong>
 
               <span class="type">
-              {{ workTypeSymbol(entry.workTypeId) }}
-                {{ workTypeLabel(entry.workTypeId) }}
+                 @if (workTypeSymbol(entry.workTypeId)) {
+                   <mat-icon>{{ workTypeSymbol(entry.workTypeId) }}</mat-icon>
+                 }
+                 {{ workTypeLabel(entry.workTypeId) }}
             </span>
 
               @if (entry.comment) {

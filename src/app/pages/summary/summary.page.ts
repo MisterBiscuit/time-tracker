@@ -7,6 +7,7 @@ import {StorageService} from '@shared/storage.service';
 import {CalendarService} from '@shared/calendar.service';
 import {sortByField, toLocalDateString} from '@shared/helpers';
 import {DateStateManager} from '@shared/date-state.manager';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
   selector: 'app-monthly-summary',
@@ -20,6 +21,7 @@ import {DateStateManager} from '@shared/date-state.manager';
     MatProgressBar,
     DecimalPipe,
     MatCardContent,
+    MatIcon,
   ],
   templateUrl: './summary.page.html',
   styleUrl: './summary.page.scss',

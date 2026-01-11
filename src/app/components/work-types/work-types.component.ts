@@ -19,6 +19,7 @@ import {
 import {StorageService} from '@shared/storage.service';
 import {WorkType} from '@shared/interfaces';
 import {SplitComponent, SplitLeftComponent, SplitRightComponent} from '@components/split/split.component';
+import {IconSelectorComponent} from '@components/icon-selector/icon-selector.component';
 
 @Component({
   selector: 'app-work-types',
@@ -43,7 +44,8 @@ import {SplitComponent, SplitLeftComponent, SplitRightComponent} from '@componen
     MatHeaderCellDef,
     SplitComponent,
     SplitLeftComponent,
-    SplitRightComponent
+    SplitRightComponent,
+    IconSelectorComponent
   ],
   templateUrl: './work-types.component.html',
 })

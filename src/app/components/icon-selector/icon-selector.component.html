@@ -1,0 +1,20 @@
+<mat-form-field class="full-width">
+  <mat-label>
+    {{ label }}
+  </mat-label>
+  <mat-select [value]="value()"
+              [disabled]="disabled"
+              (selectionChange)="onSelect($event.value)"
+              (blur)="onTouched()">
+    <mat-option>
+      <input matInput placeholder="Search icons..." [(ngModel)]="filter" (keydown)="$event.stopPropagation()" />
+    </mat-option>
+
+    @for (icon of filteredIcons(); track icon) {
+      <mat-option [value]="icon">
+        <mat-icon>{{ icon }}</mat-icon>
+        <span class="icon-label">{{ icon }}</span>
+      </mat-option>
+    }
+  </mat-select>
+</mat-form-field>
