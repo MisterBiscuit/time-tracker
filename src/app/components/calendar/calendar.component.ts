@@ -9,11 +9,10 @@ import {toLocalDateString} from '@shared/helpers';
 import {StorageService} from '@shared/storage.service';
 import {TimeOff} from '@shared/interfaces';
 
-type CalendarDay = { iso: string; } & (
-  | { type: 'empty' }
-  | { type: 'off'; label: string | undefined; day: number }
-  | { type: 'worked'; day: number; loggable: boolean; logged: number; expected: number }
-);
+type EmptyDay = { type: 'empty'; iso: string; };
+type OffDay = { type: 'off'; iso: string; label: string | undefined; day: number };
+type WorkedDay = { type: 'worked'; iso: string; day: number; loggable: boolean; logged: number; expected: number };
+type CalendarDay = EmptyDay | OffDay | WorkedDay;
 
 @Component({
   selector: 'app-calendar',
@@ -92,5 +91,17 @@ export class CalendarComponent {
   public selectDate(date: string): void {
     this.dateStateManager.set(date);
     this.drawerStateManager.show(DailyLogComponent);
+  }
+
+  public isEmpty(day: CalendarDay): day is EmptyDay {
+    return day.type === 'empty';
+  }
+
+  public isOff(day: CalendarDay): day is OffDay {
+    return day.type === 'off';
+  }
+
+  public isWorked(day: CalendarDay): day is WorkedDay {
+    return day.type === 'worked';
   }
 }

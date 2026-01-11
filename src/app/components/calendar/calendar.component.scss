@@ -9,24 +9,24 @@
   border-radius: 4px;
   background: rgba(255, 255, 255, 0.04);
 
-  & .empty {
+  &:has(.empty) {
     background: transparent;
     pointer-events: none;
   }
 
-  & .selected {
+  &.selected {
     outline: 2px solid #90caf9;
   }
 
-  & .complete {
+  &:has(.complete) {
     background: rgba(76, 175, 80, 0.25)
   }
 
-  & .missing {
+  &:has(.missing) {
     background: rgba(244, 67, 54, 0.25)
   }
 
-  & .off {
+  &:has(.off) {
     background: rgba(120, 120, 120, 0.25)
   }
 }

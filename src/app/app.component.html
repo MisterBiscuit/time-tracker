@@ -1,4 +1,4 @@
-<mat-drawer-container autosize>
+<mat-drawer-container>
   <mat-drawer-content>
     <mat-toolbar>
       <span>Time tracking</span>
@@ -27,7 +27,7 @@
   </mat-drawer-content>
 
   <mat-drawer position="end"
-              mode="push"
+              mode="over"
               [autoFocus]="false"
               [opened]="drawerStateManager.isOpen()"
               (closed)="drawerStateManager.close()">

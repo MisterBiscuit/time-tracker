@@ -6,8 +6,6 @@ export function toLocalDateString(date: Date): string {
 }
 
 export function fromLocalDateString(value: string): Date {
-  console.log('value', value);
-  console.log('split', value.split('-'));
   const [y, m, d] = value.split('-').map(Number);
   return new Date(y, m - 1, d);
 }

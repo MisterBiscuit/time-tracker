@@ -10,25 +10,28 @@
       @for (day of days(); track day) {
 
         <div class="day" [class.selected]="day.iso === current()">
-        @if (day.type === 'empty') {
-          <div class="empty"></div>
-        } @else if (day.type === 'off'; as offDay) {
-          <div class="off small">
-            {{ offDay.label }}
-          </div>
-        } @else if (day.type === 'worked'; as workedDay) {
-          <div class="worked"
-               [class.complete]="workedDay.logged >= workedDay.expected && workedDay.expected > 0"
-               [class.missing]="workedDay.logged < workedDay.expected"
-               (click)="selectDate(workedDay.iso)">
-
-            <strong>{{ workedDay.day }}</strong>
-
-            <div class="small">
-              {{ workedDay.logged | duration }} / {{ workedDay.expected | duration }}
+          @if (isOff(day)) {
+            <div class="flex flex-row gap-1">
+              <strong>{{ day.day }}</strong>
+              <span>{{ day.label }}</span>
             </div>
-          </div>
-        }
+          }
+          @else if (isWorked(day)) {
+            <div class="worked"
+                 [class.complete]="day.logged >= day.expected && day.expected > 0"
+                 [class.missing]="day.logged < day.expected"
+                 (click)="selectDate(day.iso)">
+
+              <strong>{{ day.day }}</strong>
+
+              <div class="small">
+                {{ day.logged | duration }} / {{ day.expected | duration }}
+              </div>
+            </div>
+          }
+          @else {
+            <div class="empty"></div>
+          }
         </div>
       }
     </div>
