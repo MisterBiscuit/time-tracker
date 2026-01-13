@@ -1,11 +1,13 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {CalendarPage} from './pages/calendar/calendar.page';
-import {SettingsPage} from './pages/settings/settings.page';
 import {SummaryPage} from './pages/summary/summary.page';
+import {ProjectsPage} from './pages/projects/projects.page';
+import {WorkTypesPage} from './pages/work-types/work-types.page';
 
 export const routes: Routes = [
   { path: 'calendar', component: CalendarPage },
   { path: 'summary', component: SummaryPage },
-  { path: 'settings', component: SettingsPage },
+  { path: 'projects', component: ProjectsPage },
+  { path: 'work-types', component: WorkTypesPage },
   { path: '', redirectTo: 'calendar', pathMatch: 'full' },
 ];

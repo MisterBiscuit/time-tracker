@@ -1,27 +1,6 @@
 <mat-drawer-container>
   <mat-drawer-content>
-    <mat-toolbar>
-      <span>Time tracking</span>
-
-      <span class="spacer"></span>
-
-      <button mat-button routerLink="/calendar">
-        <mat-icon>calendar_month</mat-icon>
-        Calendar
-      </button>
-
-      <button mat-button routerLink="/summary">
-        <mat-icon>dashboard</mat-icon>
-        Summary
-      </button>
-
-      <button mat-button routerLink="/settings">
-        <mat-icon>settings</mat-icon>
-        Settings
-      </button>
-
-      <span class="spacer"></span>
-    </mat-toolbar>
+    <app-toolbar></app-toolbar>
 
     <router-outlet />
   </mat-drawer-content>

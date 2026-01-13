@@ -1,0 +1,37 @@
+<h2>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="flex flex-column gap-0 p-3">
+      <mat-form-field>
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="projectId">
+          @for (project of projects(); track project.id) {
+            <mat-option [value]="project.id">{{ project.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Work Type</mat-label>
+        <mat-select formControlName="workTypeId">
+          @for (workType of workTypes(); track workType.id) {
+            <mat-option [value]="workType.id">{{ workType.label }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <app-duration-input formControlName="minutes" [presets]="presets()"></app-duration-input>
+
+      <mat-form-field>
+        <mat-label>Comment</mat-label>
+        <textarea matInput rows="2" formControlName="comment"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button matButton (click)="cancel()">Cancel</button>
+  <button matButton [disabled]="form.invalid || !canAdd()" (click)="submit()">Save</button>
+</mat-dialog-actions>

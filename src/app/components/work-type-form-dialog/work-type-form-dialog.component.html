@@ -1,0 +1,19 @@
+<h2>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="flex flex-column gap-0 p-3">
+      <mat-form-field>
+        <mat-label>Label</mat-label>
+        <input matInput formControlName="label" />
+      </mat-form-field>
+
+      <app-icon-selector label="Symbol" formControlName="symbol"></app-icon-selector>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button matButton (click)="cancel()">Cancel</button>
+  <button matButton [disabled]="form.invalid" (click)="submit()">Save</button>
+</mat-dialog-actions>

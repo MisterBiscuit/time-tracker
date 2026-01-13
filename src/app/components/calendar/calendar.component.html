@@ -7,7 +7,7 @@
     </div>
 
     <div class="grid">
-      @for (day of days(); track day) {
+      @for (day of days(); track day.id) {
 
         <div class="day" [class.selected]="day.iso === current()">
           @if (isOff(day)) {

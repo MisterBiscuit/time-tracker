@@ -13,12 +13,7 @@ export class StorageService {
   }
 
   public projects = signal<Project[]>(this.load('projects', []));
-  public workTypes = signal<WorkType[]>(this.load('workTypes', [
-    { id: 'dev', label: 'Development' },
-    { id: 'meeting', label: 'Meeting' },
-    { id: 'support', label: 'Support' },
-    { id: 'test', label: 'Testing' },
-  ]));
+  public workTypes = signal<WorkType[]>(this.load('workTypes', []));
   public entries = signal<TimeEntry[]>(this.load('entries', []));
   public overrides = signal<DayOverride[]>(this.load('overrides', []));
   public timeOff = signal<TimeOff[]>(this.load('timeOff', []));

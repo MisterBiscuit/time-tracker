@@ -1,0 +1,22 @@
+<h2>{{ title }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form">
+    <div class="flex flex-column gap-0 p-3">
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Colour</mat-label>
+        <input matInput formControlName="colour" />
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button matButton (click)="cancel()">Cancel</button>
+  <button matButton [disabled]="form.invalid" (click)="submit()">Save</button>
+</mat-dialog-actions>

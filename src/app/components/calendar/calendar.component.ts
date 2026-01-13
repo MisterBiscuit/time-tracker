@@ -1,17 +1,15 @@
 import {Component, computed, effect, EventEmitter, inject, Output, signal} from '@angular/core';
 import {MatCard, MatCardContent} from '@angular/material/card';
-import {DailyLogComponent} from '@components/daily-log/daily-log.component';
 import {CalendarService} from '@shared/calendar.service';
 import {DateStateManager} from '@shared/date-state.manager';
-import {DrawerStateManager} from '@shared/drawer-state.manager';
 import {DurationPipe} from '@shared/duration.pipe';
 import {toLocalDateString} from '@shared/helpers';
 import {StorageService} from '@shared/storage.service';
 import {TimeOff} from '@shared/interfaces';
 
-type EmptyDay = { type: 'empty'; iso: string; };
-type OffDay = { type: 'off'; iso: string; label: string | undefined; day: number };
-type WorkedDay = { type: 'worked'; iso: string; day: number; loggable: boolean; logged: number; expected: number };
+type EmptyDay = { id: string; type: 'empty'; iso: string; };
+type OffDay = { id: string; type: 'off'; iso: string; label: string | undefined; day: number };
+type WorkedDay = { id: string; type: 'worked'; iso: string; day: number; loggable: boolean; logged: number; expected: number };
 type CalendarDay = EmptyDay | OffDay | WorkedDay;
 
 @Component({
@@ -28,7 +26,6 @@ type CalendarDay = EmptyDay | OffDay | WorkedDay;
 export class CalendarComponent {
   private readonly storageService = inject(StorageService);
   private readonly calendarService = inject(CalendarService);
-  private readonly drawerStateManager = inject(DrawerStateManager);
   public readonly dateStateManager = inject(DateStateManager);
 
   @Output() dateSelected = new EventEmitter<string>();
@@ -46,7 +43,7 @@ export class CalendarComponent {
 
       const padStart = this.mondayIndex(date);
       for (let i = 0; i < padStart; i++) {
-        days.push({ type: 'empty', iso: '' });
+        days.push({ id: crypto.randomUUID(), type: 'empty', iso: '' });
       }
 
       while (date.getMonth() === month) {
@@ -56,6 +53,7 @@ export class CalendarComponent {
 
         if (off) {
           days.push({
+            id: crypto.randomUUID(),
             type: 'off',
             label: off.label,
             iso,
@@ -68,6 +66,7 @@ export class CalendarComponent {
             .reduce((sum, entry) => sum + entry.minutes, 0);
 
           days.push({
+            id: crypto.randomUUID(),
             type: 'worked',
             iso,
             day: date.getDate(),
@@ -90,7 +89,6 @@ export class CalendarComponent {
 
   public selectDate(date: string): void {
     this.dateStateManager.set(date);
-    this.drawerStateManager.show(DailyLogComponent);
   }
 
   public isEmpty(day: CalendarDay): day is EmptyDay {

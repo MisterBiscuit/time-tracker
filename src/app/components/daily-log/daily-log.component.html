@@ -34,10 +34,10 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field>
-            <mat-label>Minutes</mat-label>
-            <input matInput type="number" step="15" name="minutes" [(ngModel)]="minutes" />
-          </mat-form-field>
+          <app-duration-input name="minutes"
+                              [presets]="presets()"
+                              [(ngModel)]="minutes">
+          </app-duration-input>
 
           <mat-form-field>
             <mat-label>Comment</mat-label>
@@ -54,39 +54,5 @@
       <p>Not loggable</p>
     }
 
-    @if (entriesForDay().length) {
-      <div class="entries">
-        <h3>Entries</h3>
-
-        @for (entry of entriesForDay(); track entry.id) {
-          <div class="entry">
-
-            <div class="entry-main">
-            <span
-              class="project-dot"
-              [style.background]="projectColour(entry.projectId)">
-            </span>
-
-              <strong>{{ entry.minutes | duration }}</strong>
-
-              <span class="type">
-                 @if (workTypeSymbol(entry.workTypeId)) {
-                   <mat-icon>{{ workTypeSymbol(entry.workTypeId) }}</mat-icon>
-                 }
-                 {{ workTypeLabel(entry.workTypeId) }}
-            </span>
-
-              @if (entry.comment) {
-                <span>- {{ entry.comment }}</span>
-              }
-            </div>
-
-            <button mat-icon-button color="warn" aria-label="Delete entry" (click)="remove(entry.id)">
-              <mat-icon>delete</mat-icon>
-            </button>
-          </div>
-        }
-      </div>
-    }
   </mat-card-content>
 </mat-card>

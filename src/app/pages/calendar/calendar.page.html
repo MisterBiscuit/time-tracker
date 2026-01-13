@@ -1,5 +1,14 @@
-<app-date-nav></app-date-nav>
+<app-split>
+  <split-left>
+    <app-calendar></app-calendar>
+    <app-shortcut-helper></app-shortcut-helper>
+  </split-left>
 
-<app-calendar></app-calendar>
-
-<app-shortcut-helper></app-shortcut-helper>
+  <split-right>
+    <div class="flex flex-column gap-3 full-width" [style.align-items]="'center'">
+      <app-date-nav></app-date-nav>
+      <button matButton="outlined" (click)="openForm()">Add</button>
+      <app-logged-time-list class="full-width"></app-logged-time-list>
+    </div>
+  </split-right>
+</app-split>

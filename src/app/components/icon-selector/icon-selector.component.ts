@@ -45,9 +45,6 @@ export type IconName = typeof ICON_OPTIONS[number];
   ],
   templateUrl: './icon-selector.component.html',
   styles: `
-    .full-width {
-      width: 100%;
-    }
     mat-option {
       display: flex;
       align-items: center;

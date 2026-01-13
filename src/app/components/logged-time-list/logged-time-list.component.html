@@ -1,0 +1,34 @@
+<div class="entries full-width">
+  <h3>Entries</h3>
+
+  @for (entry of entriesForDay(); track entry.id) {
+    <div class="flex flex-row justify-space-between">
+      <span class="flex flex-row gap-3 align-items-center">
+        <strong>{{ entry.minutes | duration }}</strong>
+
+        <span class="flex flex-row gap-1 align-items-center">
+          <app-project-dot [colour]="projectColour(entry.projectId)"></app-project-dot>
+          {{ projectName(entry.projectId) }}
+        </span>
+
+        <span class="flex flex-row gap-1 align-items-center">
+          @if (workTypeSymbol(entry.workTypeId)) {
+            <mat-icon>{{ workTypeSymbol(entry.workTypeId) }}</mat-icon>
+          }
+          {{ workTypeLabel(entry.workTypeId) }}
+        </span>
+
+        @if (entry.comment) {
+          <span>| {{ entry.comment }}</span>
+        }
+      </span>
+
+      <button mat-icon-button color="warn" aria-label="Delete entry" (click)="remove(entry.id)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  }
+  @empty {
+    <p>No time logged</p>
+  }
+</div>
