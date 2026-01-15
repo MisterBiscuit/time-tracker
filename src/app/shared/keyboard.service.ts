@@ -1,13 +1,15 @@
 import {inject, Injectable} from '@angular/core';
+import {Router} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {CalendarService} from '@shared/calendar.service';
 import {DateStateManager} from '@shared/date-state.manager';
 import {DrawerStateManager} from '@shared/drawer-state.manager';
-import {DailyLogComponent} from '@components/daily-log/daily-log.component';
-import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardService {
+  private readonly calendarService = inject(CalendarService);
   private readonly dateStateManager = inject(DateStateManager);
-  private readonly drawerStateManager = inject(DrawerStateManager);
+  private readonly dialog = inject(MatDialog);
   private readonly router = inject(Router);
 
   constructor() {
@@ -15,10 +17,26 @@ export class KeyboardService {
   }
 
   private onKeyDown(event: KeyboardEvent): void {
-    if (this.shouldIgnore(event)) {
+
+    const dialogOpened: boolean = this.dialog.openDialogs.length > 0;
+
+    // If a dialog is opened and the user pressed Ctrl + Enter, try and submit the dialog
+    const isControlEnter = event.key === 'Enter' && event.ctrlKey;
+    if (dialogOpened && isControlEnter) {
+      this.dialog.openDialogs.forEach((dialog) => {
+        if ('submit' in dialog.componentInstance) {
+          dialog.componentInstance.submit();
+        }
+      });
       return;
     }
 
+    // Otherwise if a dialog is opened, do nothing
+    if (this.dialog.openDialogs.length) {
+      return;
+    }
+
+    // Dialog not opened, handle the key press
     switch (event.key.toLowerCase()) {
       case 'n':
       case '>':
@@ -42,7 +60,7 @@ export class KeyboardService {
         break;
       case 'l':
         event.preventDefault();
-        this.drawerStateManager.show(DailyLogComponent);
+        this.calendarService.openLogForm();
         break;
       case 's':
         event.preventDefault();
@@ -53,18 +71,5 @@ export class KeyboardService {
         void this.router.navigateByUrl('calendar');
         break;
     }
-  }
-
-  private shouldIgnore(event: KeyboardEvent): boolean {
-    if (this.drawerStateManager.isOpen()) {
-      return true;
-    }
-    const target = event.target as HTMLElement;
-    if (!target) {
-      return false;
-    }
-    const inputSelected = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
-    const keyCombo = event.ctrlKey || event.metaKey;
-    return inputSelected || keyCombo;
   }
 }

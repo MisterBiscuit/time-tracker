@@ -51,7 +51,7 @@ export class TimeEntryFormDialogComponent {
     return expected - logged;
   });
   public loggable = computed(() => this.calendarService.isLoggable(this.dateStateManager.current()));
-  public canAdd = computed(() => this.loggable() && this.remaining() > 0);
+  public canAdd = computed(() => this.loggable());
 
   public presets = computed(() => {
     const presets: { label: string; value: number }[] = [

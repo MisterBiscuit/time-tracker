@@ -1,10 +1,14 @@
 import {inject, Injectable} from '@angular/core';
 import {StorageService} from './storage.service';
 import {toLocalDateString} from './helpers';
+import {MatDialog} from '@angular/material/dialog';
+import {TimeEntry} from '@shared/interfaces';
+import {TimeEntryFormDialogComponent} from '@components/project-form-dialog/time-entry-form-dialog.component';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
   private readonly storageService = inject(StorageService);
+  private readonly dialog = inject(MatDialog);
 
   public expectedMinutes(date: Date): number {
     const iso = toLocalDateString(date);
@@ -27,5 +31,32 @@ export class CalendarService {
 
     const iso = toLocalDateString(date);
     return !this.storageService.timeOff().some(t => t.date === iso);
+  }
+
+  public openLogForm(entry?: TimeEntry): void {
+    const title: string = entry ? 'Edit time entry' : 'New time entry';
+    this.dialog.open(TimeEntryFormDialogComponent, {
+      data: {
+        title,
+        timeEntry: entry,
+      },
+    })
+      .afterClosed()
+      .subscribe(result => {
+        if (result) {
+          console.log(result);
+          if (entry) {
+            this.storageService.entries.update(list => list.map(p => p.id === entry?.id ? {...p, ...result} : p));
+
+          } else {
+            this.storageService.entries.update(list => [...list, {
+              ...result,
+              id: crypto.randomUUID(),
+            }]);
+          }
+
+          this.storageService.sync();
+        }
+      });
   }
 }

@@ -54,7 +54,6 @@ export class WorkTypeListComponent {
         title,
         workType,
       },
-      disableClose: true,
     })
       .afterClosed()
       .subscribe(result => {

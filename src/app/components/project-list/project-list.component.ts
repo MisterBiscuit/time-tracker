@@ -56,7 +56,6 @@ export class ProjectListComponent {
         title,
         project,
       },
-      disableClose: true,
     })
       .afterClosed()
       .subscribe(result => {

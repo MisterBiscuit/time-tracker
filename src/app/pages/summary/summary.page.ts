@@ -8,6 +8,7 @@ import {CalendarService} from '@shared/calendar.service';
 import {sortByField, toLocalDateString} from '@shared/helpers';
 import {DateStateManager} from '@shared/date-state.manager';
 import {MatIcon} from '@angular/material/icon';
+import {ProjectDot} from '@components/project-dot/project-dot.component';
 
 @Component({
   selector: 'app-monthly-summary',
@@ -22,6 +23,7 @@ import {MatIcon} from '@angular/material/icon';
     DecimalPipe,
     MatCardContent,
     MatIcon,
+    ProjectDot,
   ],
   templateUrl: './summary.page.html',
   styleUrl: './summary.page.scss',
@@ -74,6 +76,6 @@ export class SummaryPage {
         total += entry.minutes;
       }
 
-      return { project: project.name, colour: project.colour, byType, total };
+      return { project: project.name, colour: project.colour || '#999', byType, total };
     });
 }

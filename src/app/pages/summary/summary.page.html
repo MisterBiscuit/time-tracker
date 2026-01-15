@@ -14,10 +14,12 @@
         <th>Project</th>
         @for (workType of workTypes; track workType.id) {
           <th>
-            @if (workType.symbol) {
-              <mat-icon>{{ workType.symbol }}</mat-icon>
-            }
-            {{ workType.label }}
+            <div class="flex flex-row gap-1 align-items-center">
+              @if (workType.symbol) {
+                <mat-icon>{{ workType.symbol }}</mat-icon>
+              }
+              {{ workType.label }}
+            </div>
           </th>
         }
         <th>Total</th>
@@ -25,11 +27,16 @@
 
       @for (row of rows; track $index) {
         <tr>
-          <td [style.border-left]="'4px solid ' + row.colour">
+          <td>
+            <app-project-dot [colour]="row.colour"></app-project-dot>
             {{ row.project }}
           </td>
           @for (workType of workTypes; track workType.id) {
-            <td>{{ row.byType[workType.id] | duration }}</td>
+            <td>
+              @if (row.byType[workType.id]) {
+                {{ row.byType[workType.id] | duration }}
+              }
+            </td>
           }
           <td>{{ row.total | duration }}</td>
         </tr>
