@@ -23,7 +23,6 @@ import {CalendarService} from '@shared/calendar.service';
     MatButton,
   ],
   templateUrl: './calendar.page.html',
-  styleUrl: './calendar.page.scss',
 })
 export class CalendarPage {
   private readonly calendarService = inject(CalendarService);

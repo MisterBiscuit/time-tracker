@@ -3,7 +3,6 @@ import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {CalendarService} from '@shared/calendar.service';
 import {DateStateManager} from '@shared/date-state.manager';
-import {DrawerStateManager} from '@shared/drawer-state.manager';
 
 @Injectable({ providedIn: 'root' })
 export class KeyboardService {
