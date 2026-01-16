@@ -45,6 +45,18 @@
     <button matButton="outlined" (click)="openHelpDialog()">
       <u>H</u>elp
     </button>
+
+    <button matButton="outlined" (click)="export()">
+      <mat-icon>upload</mat-icon>
+      Export
+    </button>
+
+    <input #fileInput type="file" accept="application/json" hidden (change)="import($event)" />
+
+    <button matButton="outlined" (click)="fileInput.click()">
+      <mat-icon>download</mat-icon>
+      Import
+    </button>
   </div>
 
   <span class="spacer"></span>

@@ -11,11 +11,6 @@ export class CalendarService {
   private readonly dialog = inject(MatDialog);
 
   public expectedMinutes(date: Date): number {
-    const iso = toLocalDateString(date);
-    const override = this.storageService.overrides().find(o => o.date === iso);
-    if (override) {
-      return override.minutes;
-    }
     const day = date.getDay();
     if ([0, 6].includes(day)) {
       return 0;
