@@ -56,6 +56,7 @@ export class ProjectListComponent {
         title,
         project,
       },
+      width: '600px',
     })
       .afterClosed()
       .subscribe(result => {

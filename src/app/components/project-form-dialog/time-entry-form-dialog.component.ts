@@ -1,7 +1,13 @@
 import {Component, computed, Inject, inject} from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
-import {MAT_DIALOG_DATA, MatDialogActions, MatDialogContent, MatDialogRef} from '@angular/material/dialog';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogActions,
+  MatDialogContent,
+  MatDialogRef,
+  MatDialogTitle
+} from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
 import {DurationInputComponent} from '@components/duration-input/duration-input.component';
@@ -26,6 +32,7 @@ import {TimeEntry} from '@shared/interfaces';
     MatSelect,
     MatOption,
     DurationInputComponent,
+    MatDialogTitle,
   ],
   providers: [DurationPipe],
   templateUrl: './time-entry-form-dialog.component.html',

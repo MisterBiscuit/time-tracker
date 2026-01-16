@@ -1,8 +1,10 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
+import {MatDialog} from '@angular/material/dialog';
 import {MatIcon} from '@angular/material/icon';
 import {MatToolbar} from '@angular/material/toolbar';
-import {RouterLink} from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
+import {ShortcutHelperDialogComponent} from '@components/shortcut-helper-dialog/shortcut-helper-dialog.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -11,13 +13,16 @@ import {RouterLink} from '@angular/router';
     MatButton,
     MatIcon,
     MatToolbar,
-    RouterLink
+    RouterLink,
+    RouterLinkActive
   ],
   templateUrl: './toolbar.component.html',
-  styles: `
-    .spacer {
-      flex: 1 1 auto;
-    }
-  `,
+  styleUrl: './toolbar.component.scss',
 })
-export class ToolbarComponent {}
+export class ToolbarComponent {
+  private readonly dialog = inject(MatDialog);
+
+  public openHelpDialog(): void {
+    this.dialog.open(ShortcutHelperDialogComponent, { width: '600px' });
+  }
+}

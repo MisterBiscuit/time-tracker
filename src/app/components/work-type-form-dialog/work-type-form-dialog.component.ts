@@ -6,7 +6,7 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogRef
+  MatDialogRef, MatDialogTitle
 } from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {Project, WorkType} from '@shared/interfaces';
@@ -24,6 +24,7 @@ import {IconSelectorComponent} from '@components/icon-selector/icon-selector.com
     MatDialogContent,
     MatDialogActions,
     IconSelectorComponent,
+    MatDialogTitle,
   ],
   templateUrl: './work-type-form-dialog.component.html',
 })

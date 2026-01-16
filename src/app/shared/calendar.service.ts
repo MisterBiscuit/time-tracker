@@ -40,6 +40,7 @@ export class CalendarService {
         title,
         timeEntry: entry,
       },
+      width: '600px',
     })
       .afterClosed()
       .subscribe(result => {

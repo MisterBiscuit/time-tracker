@@ -2,7 +2,6 @@ import {Component, inject} from '@angular/core';
 import {MatButton} from '@angular/material/button';
 import {CalendarComponent} from '@components/calendar/calendar.component';
 import {DateNavComponent} from '@components/date-nav/date-nav.component';
-import {ShortcutHelperComponent} from '@components/shortcut-helper/shortcut-helper.component';
 import {SplitComponent, SplitLeftComponent, SplitRightComponent} from '@components/split/split.component';
 import {LoggedTimeListComponent} from '@components/logged-time-list/logged-time-list.component';
 import {TimeEntry} from '@shared/interfaces';
@@ -14,7 +13,6 @@ import {CalendarService} from '@shared/calendar.service';
   imports: [
     CalendarComponent,
     DateNavComponent,
-    ShortcutHelperComponent,
     SplitComponent,
     SplitLeftComponent,
     SplitRightComponent,

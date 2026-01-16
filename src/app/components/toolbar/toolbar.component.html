@@ -3,26 +3,47 @@
 
   <span class="spacer"></span>
 
-  <button mat-button routerLink="/calendar">
-    <mat-icon>calendar_month</mat-icon>
-    Calendar
-  </button>
+  <div class="flex flex-row gap-2">
+    <button #calendarLink="routerLinkActive"
+            matButton="outlined"
+            routerLink="/calendar"
+            routerLinkActive
+            [color]="calendarLink.isActive ? 'primary' : undefined">
+      <mat-icon>calendar_month</mat-icon>
+      <u>C</u>alendar
+    </button>
 
-  <button mat-button routerLink="/summary">
-    <mat-icon>dashboard</mat-icon>
-    Summary
-  </button>
+    <button #summaryLink="routerLinkActive"
+            matButton="outlined"
+            routerLink="/summary"
+            routerLinkActive
+            [color]="summaryLink.isActive ? 'primary' : undefined">
+      <mat-icon>dashboard</mat-icon>
+      <u>S</u>ummary
+    </button>
+  </div>
 
   <span class="spacer"></span>
 
   <div class="flex flex-row gap-2">
-
-    <button matButton="outlined" routerLink="/projects">
-      Projects
+    <button #projectsLink="routerLinkActive"
+            matButton="outlined"
+            routerLink="/projects"
+            routerLinkActive
+            [color]="projectsLink.isActive ? 'primary' : undefined">
+      <u>P</u>rojects
     </button>
 
-    <button matButton="outlined" routerLink="/work-types">
-      Work types
+    <button #workTypesLink="routerLinkActive"
+            matButton="outlined"
+            routerLink="/work-types"
+            routerLinkActive
+            [color]="workTypesLink.isActive ? 'primary' : undefined">
+      <u>W</u>ork types
+    </button>
+
+    <button matButton="outlined" (click)="openHelpDialog()">
+      <u>H</u>elp
     </button>
   </div>
 

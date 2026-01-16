@@ -6,7 +6,7 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogRef
+  MatDialogRef, MatDialogTitle
 } from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {Project} from '@shared/interfaces';
@@ -22,6 +22,7 @@ import {Project} from '@shared/interfaces';
     MatButton,
     MatDialogContent,
     MatDialogActions,
+    MatDialogTitle,
   ],
   templateUrl: './project-form-dialog.component.html',
 })

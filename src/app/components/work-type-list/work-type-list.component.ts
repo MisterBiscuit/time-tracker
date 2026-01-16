@@ -54,6 +54,7 @@ export class WorkTypeListComponent {
         title,
         workType,
       },
+      width: '600px',
     })
       .afterClosed()
       .subscribe(result => {

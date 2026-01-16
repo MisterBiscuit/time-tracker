@@ -1,6 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
+import {ShortcutHelperDialogComponent} from '@components/shortcut-helper-dialog/shortcut-helper-dialog.component';
 import {CalendarService} from '@shared/calendar.service';
 import {DateStateManager} from '@shared/date-state.manager';
 
@@ -37,14 +38,10 @@ export class KeyboardService {
 
     // Dialog not opened, handle the key press
     switch (event.key.toLowerCase()) {
-      case 'n':
-      case '>':
       case 'arrowright':
         event.preventDefault();
         this.dateStateManager.nextDay();
         break;
-      case 'p':
-      case '<':
       case 'arrowleft':
         event.preventDefault();
         this.dateStateManager.previousDay();
@@ -69,6 +66,17 @@ export class KeyboardService {
         event.preventDefault();
         void this.router.navigateByUrl('calendar');
         break;
+      case 'p':
+        event.preventDefault();
+        void this.router.navigateByUrl('projects');
+        break;
+      case 'w':
+        event.preventDefault();
+        void this.router.navigateByUrl('work-types');
+        break;
+      case 'h':
+        event.preventDefault();
+        this.dialog.open(ShortcutHelperDialogComponent, { width: '600px' });
     }
   }
 }
