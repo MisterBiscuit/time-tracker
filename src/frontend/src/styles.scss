@@ -1,0 +1,72 @@
+/* You can add global styles to this file, and also import other style files */
+
+@use '@angular/material' as mat;
+
+@use "spacing";
+
+@include mat.elevation-classes();
+@include mat.app-background();
+
+$typography: mat.m2-define-typography-config(
+  $font-family: 'Roboto, "Helvetica Neue", Arial, sans-serif'
+);
+
+@include mat.all-component-typographies($typography);
+
+html {
+  color-scheme: light dark;
+  @include mat.theme((
+    color: mat.$cyan-palette,
+    typography: (
+      plain-family: Roboto,
+      brand-family: Open Sans,
+      bold-weight: 900,
+      medium-weight: 500,
+      regular-weight: 300,
+    ),
+    density: 0
+  ));
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", Arial, sans-serif;
+  background: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+* {
+  font-family: inherit;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+.justify-space-center {
+  justify-content: center;
+}
+.justify-space-around {
+  justify-content: space-around;
+}
+.justify-space-evenly {
+  justify-content: space-evenly;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}

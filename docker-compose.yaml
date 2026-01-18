@@ -1,0 +1,17 @@
+services:
+  backend:
+    build:
+      context: ./src/backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - time-tracker-data:/data
+
+  frontend:
+    build:
+      context: ./src/backend
+    ports:
+      - "4200:4444"
+
+volumes:
+  time-tracker-data:
