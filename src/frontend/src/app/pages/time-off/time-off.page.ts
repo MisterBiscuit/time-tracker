@@ -3,6 +3,7 @@ import {FormsModule} from '@angular/forms';
 import {MatButton} from '@angular/material/button';
 
 import {TimeOffListComponent} from '@features/time-off/time-off-list/time-off-list.component';
+import {TimeOff} from '@shared/interfaces';
 import {TimeOffStore} from '@shared/stores/time-off.store';
 
 @Component({
@@ -18,7 +19,15 @@ import {TimeOffStore} from '@shared/stores/time-off.store';
 export class TimeOffPage {
   public timeOffStore = inject(TimeOffStore);
 
-  public openForm(): void {
-    this.timeOffStore.openForm();
+  public openForm(item?: TimeOff): void {
+    this.timeOffStore.openForm(item);
+  }
+
+  public remove(item: TimeOff): void {
+    this.timeOffStore.remove(item.id);
+  }
+
+  public autofill(): void {
+    this.timeOffStore.autofill();
   }
 }

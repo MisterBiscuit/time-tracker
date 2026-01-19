@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, EventEmitter, Input, Output, Signal} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
@@ -18,8 +18,6 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
-
-import {TimeOffStore} from '@shared/stores/time-off.store';
 import {TimeOff} from '@shared/interfaces';
 
 @Component({
@@ -49,15 +47,9 @@ import {TimeOff} from '@shared/interfaces';
 })
 export class TimeOffListComponent {
 
-  public readonly timeOffStore = inject(TimeOffStore);
+  @Input({ required: true }) items!: Signal<TimeOff[]>;
+  @Output() editClick: EventEmitter<TimeOff> = new EventEmitter<TimeOff>();
+  @Output() removeClick: EventEmitter<TimeOff> = new EventEmitter<TimeOff>();
 
   public readonly displayedColumns: string[] = ['date', 'label', 'actions'];
-
-  public openForm(item?: TimeOff): void {
-    this.timeOffStore.openForm(item);
-  }
-
-  public remove(id: string): void {
-    this.timeOffStore.remove(id);
-  }
 }

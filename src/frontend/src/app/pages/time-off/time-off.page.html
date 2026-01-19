@@ -1,6 +1,10 @@
 <div class="full-width flex flex-column gap-1 mt-3 justify-space-center">
-  <div class="full-width flex flex-row justify-space-center">
+  <div class="full-width flex flex-row gap-2 justify-space-center">
     <button matButton="filled" (click)="openForm()">Add time off</button>
+    <button matButton="tonal" (click)="autofill()">Auto fill this year</button>
   </div>
-  <app-time-off-list></app-time-off-list>
+  <app-time-off-list [items]="timeOffStore.items"
+                     (editClick)="openForm($event)"
+                     (removeClick)="remove($event)">
+  </app-time-off-list>
 </div>

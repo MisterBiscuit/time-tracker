@@ -21,21 +21,15 @@ export abstract class AbstractStore<T extends CommonEntity> {
   }
 
   public create(payload: Omit<T, 'id'>): void {
-    this.api.create(payload).subscribe((item: T) => {
-      this._items.update(list => [...list, item]);
-    });
+    this.api.create(payload).subscribe(() => this.load());
   }
 
   public update(id: string, payload: Partial<T>): void {
-    this.api.update(id, payload).subscribe((item: T) => {
-      this._items.update(list => list.map(x => x.id === id ? item : x));
-    });
+    this.api.update(id, payload).subscribe(() => this.load());
   }
 
   public remove(id: string): void {
-    this.api.remove(id).subscribe(() => {
-      this._items.update(list => list.filter(x => x.id !== id));
-    });
+    this.api.remove(id).subscribe(() => this.load());
   }
 
   public openForm(item?: T): void {

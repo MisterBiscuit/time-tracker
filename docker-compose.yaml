@@ -5,13 +5,10 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - time-tracker-data:/data
+      - ./src/backend/data:/usr/src/app/data
 
   frontend:
     build:
-      context: ./src/backend
+      context: ./src/frontend
     ports:
-      - "4200:4444"
-
-volumes:
-  time-tracker-data:
+      - "4200:8080"

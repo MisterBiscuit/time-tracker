@@ -1,19 +1,25 @@
-FROM node:22-alpine as build
+FROM node:22-alpine as builder
 
 WORKDIR /app
 
-COPY package*.json ./
+COPY package*.json .
 
-RUN npm run install
+RUN npm install
 
 COPY . .
 
-RUN npm run build --prod
+RUN npm run build --production
 
-FROM nginx:stable
 
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+FROM nginx:stable AS runner
 
-COPY --from=build /app/dist/time-tracking/browser/ /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
 
-EXPOSE 80
+COPY --chown=nginx:nginx --from=builder /app/dist/*/browser /usr/share/nginx/html
+
+USER nginx
+
+EXPOSE 8080
+
+ENTRYPOINT ["nginx", "-c", "/etc/nginx/nginx.conf"]
+CMD ["-g", "daemon off;"]

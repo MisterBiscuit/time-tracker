@@ -10,4 +10,8 @@ export class TimeOffStore extends AbstractStore<TimeOff> {
   protected readonly api = inject(TimeOffApi);
   protected readonly itemLabel = 'Time off';
   protected readonly dialogComponent = TimeOffFormDialogComponent;
+
+  public autofill(): void {
+    this.api.autofill().subscribe(() => this.load());
+  }
 }

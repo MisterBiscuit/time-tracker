@@ -9,8 +9,6 @@ import {
   MatDialogTitle
 } from '@angular/material/dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
-
-import {IconSelectorComponent} from '@components/icon-selector/icon-selector.component';
 import {Project} from '@shared/interfaces';
 
 @Component({
@@ -25,7 +23,7 @@ import {Project} from '@shared/interfaces';
     MatDialogContent,
     MatDialogActions,
     MatDialogTitle,
-    IconSelectorComponent,
+
   ],
   templateUrl: './project-form-dialog.component.html',
 })

@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, NotFoundException, Post, Put, Query, ValidationPipe} from "@nestjs/common";
+import {Body, Controller, Delete, Get, NotFoundException, Param, Post, Put, ValidationPipe} from "@nestjs/common";
 import {AppState, TimeEntry} from "../interfaces";
 import {DataManager} from "../data-manager/data.manager";
 import {CreateTimeEntryDto} from "./dtos/create-time-entry.dto";
@@ -28,7 +28,7 @@ export class TimeEntryController {
   }
 
   @Put(':id')
-  public async update(@Query('id') id: string, @Body() itemData: UpdateTimeEntryDto): Promise<TimeEntry> {
+  public async update(@Param('id') id: string, @Body() itemData: UpdateTimeEntryDto): Promise<TimeEntry> {
     const data: AppState = await this.dataManager.get();
     const item: TimeEntry | undefined = data.entries.find(p => p.id === id);
     if (!item) {
@@ -41,7 +41,7 @@ export class TimeEntryController {
   }
 
   @Delete(':id')
-  public async remove(@Query('id') id: string): Promise<void> {
+  public async remove(@Param('id') id: string): Promise<void> {
     const data: AppState = await this.dataManager.get();
     const item: TimeEntry | undefined = data.entries.find(p => p.id === id);
     if (!item) {
