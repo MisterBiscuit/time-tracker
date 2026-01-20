@@ -4,6 +4,7 @@ import {MatButton} from '@angular/material/button';
 
 import {ProjectListComponent} from '@features/projects/project-list/project-list.component';
 import {ProjectStore} from '@shared/stores/project.store';
+import {Project} from '@shared/interfaces';
 
 @Component({
   selector: 'app-projects',
@@ -16,9 +17,13 @@ import {ProjectStore} from '@shared/stores/project.store';
   templateUrl: './projects.page.html',
 })
 export class ProjectsPage {
-  private readonly projectStore = inject(ProjectStore);
+  public readonly projectStore = inject(ProjectStore);
 
-  public openForm(): void {
-    this.projectStore.openForm();
+  public openForm(item?: Project): void {
+    this.projectStore.openForm(item);
+  }
+
+  public remove(id: string): void {
+    this.projectStore.remove(id);
   }
 }

@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatMiniFabButton} from '@angular/material/button';
 import {MatIcon} from '@angular/material/icon';
@@ -17,7 +17,7 @@ import {
 
 import {ProjectDot} from '@features/projects/project-dot/project-dot.component';
 import {Project} from '@shared/interfaces';
-import {ProjectStore} from '@shared/stores/project.store';
+import {AbstractListComponent} from '@features/abstract-list.component';
 
 @Component({
   selector: 'app-project-list',
@@ -41,16 +41,6 @@ import {ProjectStore} from '@shared/stores/project.store';
   ],
   templateUrl: './project-list.component.html',
 })
-export class ProjectListComponent {
-  public readonly projectStore = inject(ProjectStore);
-
+export class ProjectListComponent extends AbstractListComponent<Project> {
   public readonly displayedColumns: string[] = ['name', 'colour', 'actions'];
-
-  public openForm(project?: Project): void {
-    this.projectStore.openForm(project);
-  }
-
-  public remove(id: string): void {
-    this.projectStore.remove(id);
-  }
 }

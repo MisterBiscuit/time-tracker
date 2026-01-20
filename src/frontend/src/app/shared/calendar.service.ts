@@ -39,7 +39,7 @@ export class CalendarService {
     this.dialog.open(TimeEntryFormDialogComponent, {
       data: {
         title,
-        timeEntry: entry,
+        item: entry,
       },
       width: '600px',
     })
@@ -48,8 +48,8 @@ export class CalendarService {
         filter(Boolean),
       )
       .subscribe((result: TimeEntry) => {
-        if (result.id) {
-          this.timeEntryStore.update(result.id, result);
+        if (entry?.id) {
+          this.timeEntryStore.update(entry.id, result);
         } else {
           this.timeEntryStore.create(result);
         }

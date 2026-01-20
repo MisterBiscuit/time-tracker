@@ -7,6 +7,7 @@ import {SplitComponent, SplitLeftComponent, SplitRightComponent} from '@componen
 import {LoggedTimeListComponent} from '@features/time-entries/logged-time-list/logged-time-list.component';
 import {TimeEntry} from '@shared/interfaces';
 import {CalendarService} from '@shared/calendar.service';
+import {TimeEntryStore} from '@shared/stores/time-entry.store';
 
 @Component({
   selector: 'app-calendar-page',
@@ -24,7 +25,8 @@ import {CalendarService} from '@shared/calendar.service';
   templateUrl: './calendar.page.html',
 })
 export class CalendarPage {
-  private readonly calendarService = inject(CalendarService);
+  public readonly calendarService = inject(CalendarService);
+  public readonly timeEntryStore = inject(TimeEntryStore);
 
   public openForm(entry?: TimeEntry): void {
     this.calendarService.openLogForm(entry);

@@ -7,7 +7,11 @@
   <split-right>
     <div class="full-width flex flex-column gap-3 align-items-center">
       <button matButton="filled" (click)="openForm()">Add time log</button>
-      <app-logged-time-list class="full-width"></app-logged-time-list>
+      <app-logged-time-list [items]="timeEntryStore.items"
+                            class="full-width"
+                            (editClick)="openForm($event)"
+                            (removeClick)="timeEntryStore.remove($event.id)">
+      </app-logged-time-list>
     </div>
   </split-right>
 </app-split>

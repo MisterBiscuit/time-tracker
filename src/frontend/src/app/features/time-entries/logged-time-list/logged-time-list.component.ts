@@ -15,14 +15,13 @@ import {
 } from '@angular/material/table';
 
 import {ProjectDot} from '@features/projects/project-dot/project-dot.component';
-import {CalendarService} from '@shared/calendar.service';
 import {DateStateManager} from '@shared/date-state.manager';
 import {toLocalDateString} from '@shared/helpers';
 import {TimeEntry} from '@shared/interfaces';
 import {DurationPipe} from '@shared/pipes/duration.pipe';
-import {TimeEntryStore} from '@shared/stores/time-entry.store';
 import {WorkTypeStore} from '@shared/stores/work-type.store';
 import {ProjectStore} from '@shared/stores/project.store';
+import {AbstractListComponent} from '@features/abstract-list.component';
 
 @Component({
   selector: 'app-logged-time-list',
@@ -46,27 +45,17 @@ import {ProjectStore} from '@shared/stores/project.store';
   ],
   templateUrl: './logged-time-list.component.html',
 })
-export class LoggedTimeListComponent {
-  public readonly calendarService = inject(CalendarService);
+export class LoggedTimeListComponent extends AbstractListComponent<TimeEntry> {
   public readonly dateStateManager = inject(DateStateManager);
   private readonly projectStore = inject(ProjectStore);
-  private readonly timeEntryStore = inject(TimeEntryStore);
   private readonly workTypeStore = inject(WorkTypeStore);
 
   public readonly displayedColumns: string[] = ['duration', 'project', 'workType', 'comment', 'actions'];
 
   public entriesForDay = computed(() => {
-    return this.timeEntryStore.items()
+    return this.items()
       .filter(entry => entry.date === toLocalDateString(this.dateStateManager.current()))
   });
-
-  public openForm(entry?: TimeEntry): void {
-    return this.calendarService.openLogForm(entry);
-  }
-
-  public remove(id: string): void {
-    this.timeEntryStore.remove(id);
-  }
 
   public projectColour(id: string): string {
     return this.projectStore.items().find(project => project.id === id)?.colour ?? '#999';

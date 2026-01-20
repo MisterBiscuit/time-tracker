@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output, Signal} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {MatCardModule} from '@angular/material/card';
 import {MatInputModule} from '@angular/material/input';
@@ -18,6 +18,8 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
+
+import {AbstractListComponent} from '@features/abstract-list.component';
 import {TimeOff} from '@shared/interfaces';
 
 @Component({
@@ -41,15 +43,9 @@ import {TimeOff} from '@shared/interfaces';
     MatHeaderRowDef,
     MatCellDef,
     MatHeaderCellDef,
-
   ],
   templateUrl: './time-off-list.component.html',
 })
-export class TimeOffListComponent {
-
-  @Input({ required: true }) items!: Signal<TimeOff[]>;
-  @Output() editClick: EventEmitter<TimeOff> = new EventEmitter<TimeOff>();
-  @Output() removeClick: EventEmitter<TimeOff> = new EventEmitter<TimeOff>();
-
+export class TimeOffListComponent extends AbstractListComponent<TimeOff> {
   public readonly displayedColumns: string[] = ['date', 'label', 'actions'];
 }

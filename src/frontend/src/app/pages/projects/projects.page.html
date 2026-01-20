@@ -2,5 +2,8 @@
   <div class="full-width flex flex-row justify-space-center">
     <button matButton="filled" (click)="openForm()">Add project</button>
   </div>
-  <app-project-list></app-project-list>
+  <app-project-list [items]="projectStore.items"
+                    (editClick)="openForm($event)"
+                    (removeClick)="remove($event.id)">
+  </app-project-list>
 </div>
